@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My first three.js app</title>
+    <style>
+        body { margin: 0;}
+    </style>
+</head>
+<body>
+    <script type="module">
+        import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+
+        // Our Javascript will go here.
+        const scene = new THREE.Scene();
+        // création d'une caméra avec perspective 
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        // construction de la zone 
+        const geometry = new THREE.BoxGeometry( 1, 1, 1 ); // BoxGeometry contient tous les points(vertices) et le remplissage(faces) du cube
+        //  création outils
+        const material = new THREE.MeshBasicMaterial( { color : 0x00ff00 } );
+        // création cube base d'outil
+        const cube = new THREE.Mesh( geometry, material ); // Mesh = Maillage / prend la forme(geometry) et y applique un matériau(material)
+        scene.add( cube );
+        camera.position.z = 5;
+
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
